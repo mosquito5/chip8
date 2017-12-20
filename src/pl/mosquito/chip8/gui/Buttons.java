@@ -1,7 +1,12 @@
 package pl.mosquito.chip8.gui;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 public class Buttons {
 

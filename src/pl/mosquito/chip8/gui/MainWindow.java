@@ -8,8 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class MainWindow extends Application {
     private Button RunButton;
@@ -44,8 +43,8 @@ public class MainWindow extends Application {
 
         LoadRomButton.setOnAction((ae) -> {
             file = fileChooser.showOpenDialog(primaryStage);
-            //if(file != null)
-                //openfile
+            if(file != null)
+                loadRom(file);
 
         });
 
@@ -66,6 +65,23 @@ public class MainWindow extends Application {
 
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.setTitle("Select rom");
+    }
+
+    private void loadRom(File file) {
+        try {
+            DataInputStream program = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
+            
+            byte[] buffer = new byte[( int)file.length()];
+
+            program.read(buffer);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
 

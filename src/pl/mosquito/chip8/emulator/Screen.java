@@ -26,6 +26,7 @@ public class Screen {
     public Screen(int scale,String colorStyleSetted) {
         this.scale = scale;
         this.colorStyleSetted = colorStyleSetted;
+        init();
     }
 
     private void init() {
@@ -44,6 +45,7 @@ public class Screen {
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.setTitle("Running");
+        primaryStage.show();
 
     }
 

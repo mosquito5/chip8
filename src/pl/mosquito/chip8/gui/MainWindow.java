@@ -4,6 +4,8 @@ package pl.mosquito.chip8.gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -15,6 +17,7 @@ public class MainWindow extends Application {
     private Button RunButton;
     private Button LoadRomButton;
     private Button CloseButton;
+    private ComboBox styleComboBox;
     private FileChooser fileChooser;
     private File file;
 
@@ -28,6 +31,7 @@ public class MainWindow extends Application {
         LoadRomButton = buttons.loadRomButton();
         RunButton = buttons.runButton();
         CloseButton = buttons.closeButton();
+        styleComboBox = buttons.comboBox();
 
     }
 
@@ -50,10 +54,11 @@ public class MainWindow extends Application {
         });
 
         RunButton.setOnAction((ae) -> {
-            Screen screen = new Screen(1);
+            new Screen(1, (String) styleComboBox.getValue());
         });
 
-        flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton);
+
+        flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton, styleComboBox);
 
         primaryStage.show();
 

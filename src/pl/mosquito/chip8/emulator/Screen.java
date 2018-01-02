@@ -1,8 +1,11 @@
 package pl.mosquito.chip8.emulator;
 
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class Screen {
     private final int WIDTH = 64;
@@ -14,18 +17,34 @@ public class Screen {
 
     private Color backgroundColor;
 
-    private Color foregroundColor;
+    private Color pixelColor;
 
     private int scale;
 
-    public Screen(int scale) {
+    private String colorStyleSetted;
+
+    public Screen(int scale,String colorStyleSetted) {
         this.scale = scale;
-        backgroundColor = Color.BLACK;
-        foregroundColor = Color.WHITE;
+        this.colorStyleSetted = colorStyleSetted;
+    }
+
+    private void init() {
+        colorStyle(colorStyleSetted);
+        window();
+
         Canvas canvas = new Canvas(/*scale**/WIDTH, /*scale***/HEIGHT);
         gc = canvas.getGraphicsContext2D();
         gc.setFill(backgroundColor);
         gc.fillRect(0,0,/*scale**/WIDTH, /*scale**/HEIGHT);
+    }
+
+    private void window() {
+        Scene scene = new Scene(new FlowPane(10, 10), 640, 480);
+        Stage primaryStage = new Stage();
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
+        primaryStage.setTitle("Running");
+
     }
 
     public void clear() {
@@ -35,7 +54,16 @@ public class Screen {
         }
     }
 
+    private void colorStyle(String colorStyleSetted) {
+        switch (colorStyleSetted) {
+            case "Black and white":
+                backgroundColor = Color.BLACK;
+                pixelColor = Color.WHITE;
+                break;
+            case "Black and green":
+                backgroundColor = Color.BLACK;
+                pixelColor = Color.GREEN;
+        }
 
-
-
+    }
 }

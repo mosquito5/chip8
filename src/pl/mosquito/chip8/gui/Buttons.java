@@ -1,8 +1,14 @@
 package pl.mosquito.chip8.gui;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -32,4 +38,15 @@ public class Buttons {
        return button;
 
    }
+
+   ComboBox comboBox() {
+       ComboBox comboBox = new ComboBox();
+       comboBox.setTooltip(new Tooltip("Select screen style"));
+       comboBox.getItems().addAll("Black and white", "Black and green");
+       comboBox.getSelectionModel().selectFirst();
+       comboBox.setEditable(false);
+       return comboBox;
+   }
+
+
 }

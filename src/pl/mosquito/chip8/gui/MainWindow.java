@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import pl.mosquito.chip8.emulator.Screen;
 
 import java.io.*;
 
@@ -48,6 +49,10 @@ public class MainWindow extends Application {
 
         });
 
+        RunButton.setOnAction((ae) -> {
+            Screen screen = new Screen(1);
+        });
+
         flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton);
 
         primaryStage.show();
@@ -71,7 +76,7 @@ public class MainWindow extends Application {
         try {
             DataInputStream program = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
             
-            byte[] buffer = new byte[( int)file.length()];
+            byte[] buffer = new byte[(int)file.length()];
 
             program.read(buffer);
 

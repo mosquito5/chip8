@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f114562b-ac1c-44a6-a831-1b333c8e90df" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/emulator/Screen.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/emulator/Screen.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/gui/Buttons.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/gui/Buttons.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/gui/MainWindow.java" afterPath="$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/gui/MainWindow.java" />
-    </list>
+    <list default="true" id="f114562b-ac1c-44a6-a831-1b333c8e90df" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -70,7 +65,7 @@
       <file leaf-file-name="Screen.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/emulator/Screen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="1065">
               <caret line="71" column="8" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -372,12 +367,12 @@
       <workItem from="1514908811187" duration="262000" />
       <workItem from="1514915192965" duration="1240000" />
       <workItem from="1514916456856" duration="4372000" />
-      <workItem from="1515017090525" duration="5891000" />
+      <workItem from="1515017090525" duration="5921000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44756000" />
+    <option name="totallyTimeSpent" value="44786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="26" width="1922" height="1055" extended-state="6" />
@@ -672,7 +667,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/mosquito/chip8/emulator/Screen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="1065">
           <caret line="71" column="8" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />

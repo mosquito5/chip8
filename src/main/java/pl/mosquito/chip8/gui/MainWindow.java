@@ -18,6 +18,7 @@ public class MainWindow extends Application {
     private Button LoadRomButton;
     private Button CloseButton;
     private ComboBox styleComboBox;
+    private ComboBox resolutionComboBox;
     private FileChooser fileChooser;
     private File file;
 
@@ -31,7 +32,8 @@ public class MainWindow extends Application {
         LoadRomButton = buttons.loadRomButton();
         RunButton = buttons.runButton();
         CloseButton = buttons.closeButton();
-        styleComboBox = buttons.comboBox();
+        styleComboBox = buttons.screenStyleComboBox();
+        resolutionComboBox = buttons.resolutionComboBox();
 
     }
 
@@ -54,11 +56,11 @@ public class MainWindow extends Application {
         });
 
         RunButton.setOnAction((ae) -> {
-            new Screen(1, (String) styleComboBox.getValue());
+            new Screen((String) resolutionComboBox.getValue(), (String) styleComboBox.getValue());
         });
 
 
-        flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton, styleComboBox);
+        flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton, styleComboBox, resolutionComboBox);
 
         primaryStage.show();
 

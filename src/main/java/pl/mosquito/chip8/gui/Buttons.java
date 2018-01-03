@@ -39,11 +39,20 @@ public class Buttons {
 
    }
 
-   ComboBox comboBox() {
+   ComboBox screenStyleComboBox() {
        ComboBox comboBox = new ComboBox();
        comboBox.setTooltip(new Tooltip("Select screen style"));
        comboBox.getItems().addAll("Black and white", "Black and green");
        comboBox.getSelectionModel().selectFirst();
+       comboBox.setEditable(false);
+       return comboBox;
+   }
+
+   ComboBox resolutionComboBox() {
+       ComboBox comboBox = new ComboBox();
+       comboBox.setTooltip(new Tooltip("Select screen resolution"));
+       comboBox.getItems().addAll("Orginal","640x320(2:1)", "1280x640(2:1)", "640x480(4:3)");
+       comboBox.getSelectionModel().select(1);
        comboBox.setEditable(false);
        return comboBox;
    }

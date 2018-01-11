@@ -19,23 +19,28 @@ public class Screen {
 
     private Color pixelColor;
 
-    private String scale;
+    private String resolution;
 
     private int scaleWidth;
     private int scaleHeight;
+    private int pixelWidthScale;
+    private int pixelHeightScale;
+    private int scale;
 
-    private String colorStyleSetted;
+    private boolean customRatio =  false;
 
-    public Screen(String scale,String colorStyleSetted) {
-        this.scale = scale;
-        this.colorStyleSetted = colorStyleSetted;
+    private String colorStyleSet;
+
+    public Screen(String resolution, String colorStyleSet) {
+        this.resolution = resolution;
+        this.colorStyleSet = colorStyleSet;
         init();
     }
 
     private void init() {
         setResolution();
 
-        colorStyle(colorStyleSetted);
+        colorStyle(colorStyleSet);
         window();
 
         clear();
@@ -45,7 +50,7 @@ public class Screen {
         Canvas canvas = new Canvas(scaleWidth, scaleHeight);
         gc = canvas.getGraphicsContext2D();
         gc.setFill(backgroundColor);
-        //gc.fillRect(0,0,/*scale**/WIDTH, /*scale**/HEIGHT);
+        //gc.fillRect(0,0,/*resolution**/WIDTH, /*resolution**/HEIGHT);
 
         Group root = new Group();
 
@@ -67,18 +72,42 @@ public class Screen {
         primaryStage.show();
 
     }
-
+//is more efficiently?
     public void render() {
-        
+        if (customRatio) {
+            for (int x = 0; x < WIDTH; x++)
+                for (int y = 0; y < HEIGHT; y++) {
+                    if (graphic[x][y] == 1)
+                        gc.setFill(pixelColor);
+                    else
+                        gc.setFill(Color.BLACK);
+
+                    gc.fillRect(x * pixelWidthScale, y * pixelHeightScale,
+                            scaleWidth, scaleHeight);
+                }
+        } else {
+                for (int x = 0; x < WIDTH; x++)
+                    for (int y = 0; y < HEIGHT; y++) {
+                        if (graphic[x][y] == 1)
+                            gc.setFill(pixelColor);
+                        else
+                            gc.setFill(Color.BLACK);
+
+                        gc.fillRect(x * scale, y * scale, scaleWidth, scaleHeight);
+                    }
+            }
+        }
+
+    public void clear() {
+        for (int x = 0; x < WIDTH; x++)
+            for (int y = 0; y < HEIGHT; y++)
+                graphic[x][y] = 0;
+
     }
 
 
-
-    public void clear() {
-        for (int x = 0; x < WIDTH; x++) {
-            for (int y = 0; y < HEIGHT; y++)
-                graphic[x][y] = 0;
-        }
+    public void setPixel(int x, int y) {
+        graphic[x][y] = 1;
     }
 
     private void colorStyle(String colorStyleSetted) {
@@ -86,12 +115,12 @@ public class Screen {
             case "Black and white":
                 backgroundColor = Color.BLACK;
                 pixelColor = Color.WHITE;
-                System.out.println("setted black & white");
+                System.out.println("set black & white");
                 break;
             case "Black and green":
                 backgroundColor = Color.BLACK;
                 pixelColor = Color.GREEN;
-                System.out.println("setted black & green");
+                System.out.println("set black & green");
                 break;
         }
 
@@ -105,26 +134,31 @@ public class Screen {
     }
 
     private void setResolution() {
-        switch (scale) {
+        switch (resolution) {
             case "Orginal":
                 scaleWidth = WIDTH;
                 scaleHeight = HEIGHT;
-                System.out.println("setted orginal");
+                System.out.println("set orginal");
                 break;
             case "640x320(2:1)":
-                scaleWidth = 10*WIDTH;
-                scaleHeight = 10*HEIGHT;
-                System.out.println("setted 640x320");
+                scale = 10;
+                scaleWidth = scale*WIDTH;
+                scaleHeight = scale*HEIGHT;
+                System.out.println("set 640x320");
                 break;
             case "1280x640(2:1)":
-                scaleWidth = 20*WIDTH;
-                scaleHeight = 20*HEIGHT;
-                System.out.println("setted 1280x640");
+                scale = 20;
+                scaleWidth = scale*WIDTH;
+                scaleHeight = scale*HEIGHT;
+                System.out.println("set 1280x640");
                 break;
             case "640x480(4:3)":
-                scaleWidth = 10*WIDTH;
-                scaleHeight = 15*HEIGHT;
-                System.out.println("setted 640x480");
+                pixelWidthScale = 10;
+                pixelHeightScale = 15;
+                scaleWidth = pixelWidthScale*WIDTH;
+                scaleHeight = pixelHeightScale*HEIGHT;
+                customRatio = true;
+                System.out.println("set 640x480");
                 break;
         }
     }

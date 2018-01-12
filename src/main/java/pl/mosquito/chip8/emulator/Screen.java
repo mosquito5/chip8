@@ -64,37 +64,25 @@ public class Screen {
 
         root.getChildren().addAll(canvas);
 
-        /**
-         * for testing
-         */
+
         fillBackground();
 
         primaryStage.show();
 
     }
-//is more efficiently?
+
     public void render() {
-        if (customRatio) {
-            for (int x = 0; x < WIDTH; x++)
-                for (int y = 0; y < HEIGHT; y++) {
-                    if (graphic[x][y] == 1)
-                        gc.setFill(pixelColor);
-                    else
-                        gc.setFill(Color.BLACK);
+        for(int x = 0; x < WIDTH; x++)
+            for(int y = 0; y < HEIGHT; y++) {
+            if(graphic[x][y] == 1)
+                gc.setFill(pixelColor);
+            else
+                gc.setFill(Color.BLACK);
 
-                    gc.fillRect(x * pixelWidthScale, y * pixelHeightScale,
-                            scaleWidth, scaleHeight);
-                }
-        } else {
-                for (int x = 0; x < WIDTH; x++)
-                    for (int y = 0; y < HEIGHT; y++) {
-                        if (graphic[x][y] == 1)
-                            gc.setFill(pixelColor);
-                        else
-                            gc.setFill(Color.BLACK);
-
-                        gc.fillRect(x * scale, y * scale, scaleWidth, scaleHeight);
-                    }
+            if(customRatio)
+                gc.fillRect(x * pixelWidthScale, y * pixelHeightScale, scaleWidth, scaleHeight);
+            else
+                gc.fillRect(x * scale, y * scale, scaleWidth, scaleHeight);
             }
         }
 
@@ -104,7 +92,6 @@ public class Screen {
                 graphic[x][y] = 0;
 
     }
-
 
     public void setPixel(int x, int y) {
         graphic[x][y] = 1;

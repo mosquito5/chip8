@@ -12,7 +12,7 @@ public class Memory {
     private int opcode;
 
     private short[] memory;
-    private byte[] V;
+    private int[] V;
 
     private int indexRegister;
     private int pc; // program counter whitch can contain a value from 0x000 to 0xFFF
@@ -38,7 +38,7 @@ public class Memory {
 
     public Memory(Screen screen) {
         memory          = new short[MEMORY_4K];
-        V               = new byte[REG_SIZE];
+        V               = new int[REG_SIZE];
         stack           = new int[REG_SIZE];
 
         pc              = 0x200; //Program counter starts at 0x200
@@ -157,15 +157,52 @@ public class Memory {
                 skipInstr("5XY0");
             break;
 
+            /**
+             * set VX = KK
+             * The interpreter puts the value KK into register VX.
+             */
+            case 0x6000:
+                putKKintoVX();
+            break;
+            /**
+             * Set VX = VX + KK.
+             *Adds the value kk to the value of register VX, then stores the result in VX.
+             */
+            case 0x7000:
+                addValueToRegister();
+            break;
+
 
             /**
              * The value of register indexRegister is set to nnn
              */
             case 0xA000:
                 idndexRegisterSetTo(opcode);
-                break;
+            break;
 
         }
+    }
+
+    /**
+     * Be aware that once the supplied number is added, if the value of the register exceeds decimal 255
+     * (the highest possible value that can be stored by an eight bit register), the register will wraparound to a
+     * corresponding value that can be stored by an eight bit register. In other words, the register will always be
+     * reduced modulo decimal 256.
+     *
+     * notice from:
+     * http://mattmik.com/files/chip8/mastering/chip8.html
+     */
+
+    private void addValueToRegister() {
+        int result = V[(opcode & 0x0F00) >> 8] + (opcode & 0x00FF);
+        V[(opcode & 0x0F00) >> 8] = (result > 256) ? result - 256 : result;
+        pc += 2;
+
+    }
+
+    private void putKKintoVX() {
+        V[(opcode & 0x0F00) >> 8] = (opcode & 0x00FF);
+        pc +=2;
     }
 
     private void skipInstr(String instruction) {
@@ -191,15 +228,13 @@ public class Memory {
                     pc += 2;
 
             break;
-
-
         }
     }
 
     private void jumpToSubroutineAddr(int opcode) {
         stack[sp] = pc;
         sp++;
-        pc = (opcode & 0x0FFF);
+        pc =        (opcode & 0x0FFF);
     }
 
     private void jumpToAddr(int opcode) {

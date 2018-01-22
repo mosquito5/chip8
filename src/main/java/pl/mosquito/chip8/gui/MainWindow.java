@@ -40,7 +40,7 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Chip8 emulator");
+        primaryStage.setTitle("Chip8 CPU");
         primaryStage.setResizable(true);
 
         FlowPane flowPane = new FlowPane(10,10);

@@ -3,7 +3,7 @@ package pl.mosquito.chip8.emulator;
 
 
 public class Keyboard  {
-    private static final int KSIZE = 16;
+    public static final int KSIZE = 16;
     /**
      * Originally used by the chip8 language had
      * a 16-key hexadecimal keypad.

@@ -97,6 +97,10 @@ public class Screen {
         graphic[x][y] = 1;
     }
 
+    public boolean getPixel(int x, int y) {
+        return graphic[x][y] == 1;
+    }
+
     private void colorStyle(String colorStyleSetted) {
         switch (colorStyleSetted) {
             case "Black and white":

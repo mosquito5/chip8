@@ -1,5 +1,7 @@
 package pl.mosquito.chip8.emulator;
 
+import java.util.Random;
+
 import static pl.mosquito.chip8.emulator.Keyboard.KSIZE;
 import static pl.mosquito.chip8.emulator.Keyboard.KeyCode;
 
@@ -268,8 +270,70 @@ public class Memory {
             case 0xB:
                 jumpToAddr();
                 break;
+            /**
+             *CXKK
+             * register VX = random number(0-255) and KK
+             */
+            case 0xC:
+                randNumAndKK();
+                break;
+            /**
+             * DXYN
+             * Draw sprite at screen location(register VX, register VY) height N,
+             * set VF when collision occurs.
+             */
+            case 0xD:
+                drawSprite();
+                break;
+        }
+    }
+
+    private void drawSprite() {
+        int xPos    = V[(opcode & 0x0F00) >> 8];
+        int yPos    = V[(opcode & 0x00F0) >> 4];
+        int height  = opcode & 0x000F;
+        int pixel;
+        int screenxPos;
+        int screenyPos;
+
+
+        V[0xF] = 0;
+
+        for(int yline = 0; yline < height; yline++) {
+            pixel = memory[I + yline];
+            for (int xline = 0; xline < 8; xline++) {
+                if((pixel & (0x80 >> xline )) != 0) {
+                    screenxPos = xPos+xline;
+                    screenyPos = yPos+yline;
+                    if(screenxPos < 64 && screenyPos < 32) {
+                        if(screen.getPixel(screenxPos, screenyPos)) {
+                            V[0xF] = 1;
+                        }
+                            screen.setPixel(screenxPos, screenyPos);
+
+                    }
+
+                }
+
+            }
 
         }
+        pc += 2;
+    }
+
+    private void randNumAndKK() {
+        int randNum                 = random(0, 255);
+        V[(opcode & 0x0F00) >> 8]   = randNum & (opcode & 0x00FF);
+
+        pc                          += 2;
+    }
+
+    /**
+     *returns random number of range min-max
+     */
+    private int random(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min) + min;
     }
 
     private void leftShift() {

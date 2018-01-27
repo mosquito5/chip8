@@ -2,8 +2,8 @@ package pl.mosquito.chip8.emulator;
 
 import java.util.Random;
 
-import static pl.mosquito.chip8.emulator.Keyboard.KSIZE;
-import static pl.mosquito.chip8.emulator.Keyboard.KeyCode;
+//import static pl.mosquito.chip8.emulator.Keyboard.KSIZE;
+//import static pl.mosquito.chip8.emulator.Keyboard.KeyCode;
 
 public class Memory {
 
@@ -35,11 +35,11 @@ public class Memory {
     private byte        sp;
 
     private Screen      screen;
-    //private Keyboard    keyboard;
+    private Keyboard    keyboard;
 
 
 
-    public Memory(Screen screen) {
+    public Memory(Screen screen, Keyboard keyboard) {
         memory          = new short[MEMORY_4K];
         V               = new int[REG_SIZE];
         stack           = new int[REG_SIZE];
@@ -50,7 +50,7 @@ public class Memory {
         sp              = 0; // Reset stack pointer*/
 
         this.screen     = screen;
-        //keyboard        = new Keyboard();
+        this.keyboard   = keyboard;
 
         /**
          * @param init initialize system before running the first emulation cycle
@@ -84,8 +84,8 @@ public class Memory {
     }
 
     private void loadfont() {
-        for(int i = 0; i < KSIZE; i++){
-            memory[i] = KeyCode[i];
+        for(int i = 0; i < keyboard.KSIZE; i++){
+            memory[i] = keyboard.KeyCode[i];
         }
     }
 
@@ -285,7 +285,54 @@ public class Memory {
             case 0xD:
                 drawSprite();
                 break;
+            case 0xE:
+                switch (opcode & 0x000F) {
+                    /**
+                     * EX9E
+                     * skip next instruction if key with the value of Vx is pressed
+                     */
+                    case 0xE:
+                        skipInstr();
+                        break;
+                    /**
+                     *EXA1
+                     *skip next instruction if key with the value of Vx is not pressed
+                     */
+                    case 0x1:
+                        skipInstr();
+                        break;
+
+                }
+            case 0xF:
+                switch (opcode & 0x00FF) {
+                    /**
+                     * FX07
+                     * The value of delayTimer is placed into Vx
+                     */
+                    case 0x07:
+                        setDelayTimerToVX();
+                        break;
+                    /**FX0A
+                     *wait for a key press, store the value of the key in VX
+                     */
+                    case 0x0A:
+                        waitForKeyPress();
+                        break;
+                }
+                break;
         }
+
+    }
+
+    private void waitForKeyPress() {
+        int currentkey = keyboard
+
+        pc += 2;
+    }
+
+    private void setDelayTimerToVX() {
+        V[(opcode & 0x0F00) >> 8] = delayTimer;
+        pc += 2;
     }
 
     private void drawSprite() {
@@ -487,6 +534,26 @@ public class Memory {
                 else
                     pc                          += 2;
                 break;
+            case 0xE:
+                switch (opcode & 0x000F) {
+                    //EX9E
+                    //Skips the next instruction if the key stored in VX is pressed
+                    case 0xE:
+                        if(keyboard.KeyCode[V[(opcode & 0x0F00) >> 8]] != 0)
+                            pc += 4;
+                        else
+                            pc += 2;
+                        break;
+
+                    //EXA1
+                    //Skips the next instruction if the key stored in VX is not pressed
+                    case 0x1:
+                        if(keyboard.KeyCode[V[(opcode & 0x0F00) >> 8]] == 0)
+                            pc += 4;
+                        else
+                            pc += 2;
+                        break;
+                }
 
         }
     }

@@ -11,6 +11,8 @@ public class Keyboard  {
      * each key
      */
 
+
+
     public boolean Keyboard[] = new boolean[KSIZE];
 
 
@@ -40,5 +42,7 @@ public class Keyboard  {
             Keyboard[i] = false;
         }
     }
+
+    public boolean
 
 }

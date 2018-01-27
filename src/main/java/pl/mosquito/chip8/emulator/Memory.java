@@ -325,7 +325,6 @@ public class Memory {
     }
 
     private void waitForKeyPress() {
-        int currentkey = keyboard
 
         pc += 2;
     }

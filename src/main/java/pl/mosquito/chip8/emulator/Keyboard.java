@@ -43,6 +43,8 @@ public class Keyboard  {
         }
     }
 
-    public boolean
+    public boolean isPressed(int i) {
+        return Keyboard[i];
+    }
 
 }

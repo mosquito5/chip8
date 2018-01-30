@@ -14,37 +14,40 @@ import pl.mosquito.chip8.emulator.Screen;
 import java.io.*;
 
 public class MainWindow extends Application {
-    private Button RunButton;
-    private Button LoadRomButton;
-    private Button CloseButton;
-    private ComboBox styleComboBox;
-    private ComboBox resolutionComboBox;
+    private Button      RunButton;
+    private Button      LoadRomButton;
+    private Button      CloseButton;
+    private Button      KeyboardSettings;
+    private ComboBox    styleComboBox;
+    private ComboBox    resolutionComboBox;
     private FileChooser fileChooser;
-    private File file;
+    private File        file;
 
     @Override
     public void init() {
 
-        fileChooser = new FileChooser();
+        fileChooser         = new FileChooser();
         configureFileChooser(fileChooser);
-        Buttons buttons = new Buttons();
+        Buttons buttons     = new Buttons();
 
-        LoadRomButton = buttons.loadRomButton();
-        RunButton = buttons.runButton();
-        CloseButton = buttons.closeButton();
-        styleComboBox = buttons.screenStyleComboBox();
-        resolutionComboBox = buttons.resolutionComboBox();
+        LoadRomButton       = buttons.loadRomButton();
+        RunButton           = buttons.runButton();
+        CloseButton         = buttons.closeButton();
+        KeyboardSettings    = buttons.keyboardSettings();
+        styleComboBox       = buttons.screenStyleComboBox();
+        resolutionComboBox  = buttons.resolutionComboBox();
+
 
     }
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Chip8 CPU");
+        primaryStage.setTitle("Chip8 interpreter");
         primaryStage.setResizable(true);
 
-        FlowPane flowPane = new FlowPane(10,10);
-        Scene scene = new Scene(flowPane);
+        FlowPane flowPane   = new FlowPane(10,10);
+        Scene scene         = new Scene(flowPane);
 
         primaryStage.setScene(scene);
 
@@ -56,11 +59,13 @@ public class MainWindow extends Application {
         });
 
         RunButton.setOnAction((ae) -> {
-            new Screen((String) resolutionComboBox.getValue(), (String) styleComboBox.getValue());
+            new Screen((String) resolutionComboBox.getValue(),
+                    (String) styleComboBox.getValue());
         });
 
 
-        flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton, styleComboBox, resolutionComboBox);
+        flowPane.getChildren().addAll(RunButton, LoadRomButton, CloseButton,
+                styleComboBox, resolutionComboBox, KeyboardSettings);
 
         primaryStage.show();
 
@@ -83,7 +88,7 @@ public class MainWindow extends Application {
         try {
             DataInputStream program = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
             
-            byte[] buffer = new byte[(int)file.length()];
+            byte[] buffer           = new byte[(int)file.length()];
 
             program.read(buffer);
 

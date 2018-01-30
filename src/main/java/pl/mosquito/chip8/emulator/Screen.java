@@ -38,6 +38,7 @@ public class Screen {
     }
 
     private void init() {
+        System.out.println("Screen");
         setResolution();
 
         colorStyle(colorStyleSet);
@@ -47,17 +48,17 @@ public class Screen {
     }
 
     private void window() {
-        Canvas canvas = new Canvas(scaleWidth, scaleHeight);
-        gc = canvas.getGraphicsContext2D();
+        Canvas canvas       = new Canvas(scaleWidth, scaleHeight);
+        gc                  = canvas.getGraphicsContext2D();
         gc.setFill(backgroundColor);
         //gc.fillRect(0,0,/*resolution**/WIDTH, /*resolution**/HEIGHT);
 
-        Group root = new Group();
+        Group root          = new Group();
 
 
         //Scene scene = new Scene(new FlowPane(10, 10), 640, 480);
-        Scene scene = new Scene(root);
-        Stage primaryStage = new Stage();
+        Scene scene         = new Scene(root);
+        Stage primaryStage  = new Stage();
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.setTitle("Running");

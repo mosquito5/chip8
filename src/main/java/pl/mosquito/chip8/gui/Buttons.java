@@ -39,6 +39,16 @@ public class Buttons {
 
    }
 
+   Button keyboardSettings() {
+       Button button = new Button("Keyboard settings");
+
+       button.setOnAction((ae) -> {
+           new Keyboard_settings();
+
+       });
+       return button;
+   }
+
    ComboBox screenStyleComboBox() {
        ComboBox comboBox = new ComboBox();
        comboBox.setTooltip(new Tooltip("Select screen style"));
@@ -56,6 +66,24 @@ public class Buttons {
        comboBox.setEditable(false);
        return comboBox;
    }
+    /**
+     * buttons for keyboard settings class
+     */
+    Button Done() {
+        Button button = new Button("Done");
+        button.setOnAction((ae) -> {
+            Platform.exit();
+        });
+
+        return button;
+    }
+
+    Button saveSet() {
+        Button button = new Button("Save settings");
+
+        return button;
+    }
+
 
 
 }

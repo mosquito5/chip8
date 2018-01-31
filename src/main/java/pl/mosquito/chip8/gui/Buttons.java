@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 
@@ -81,6 +82,14 @@ public class Buttons {
     Button saveSet() {
         Button button = new Button("Save settings");
 
+        return button;
+    }
+
+    Button closeKeyboard() {
+        Button button = new Button("Close");
+        button.setOnAction((ae) -> {
+            Platform.exit();
+        });
         return button;
     }
 

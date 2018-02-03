@@ -7,7 +7,7 @@ import java.util.List;
 public class Labels {
     private List<String> labList = new ArrayList<String>();
 
-    Labels() {
+   public Labels() {
         filLablList();
     }
 

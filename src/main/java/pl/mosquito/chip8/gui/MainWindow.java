@@ -14,6 +14,9 @@ import pl.mosquito.chip8.emulator.Screen;
 import java.io.*;
 
 public class MainWindow extends Application {
+    public static boolean isSet = false;
+
+
     private Button      RunButton;
     private Button      LoadRomButton;
     private Button      CloseButton;
@@ -22,7 +25,6 @@ public class MainWindow extends Application {
     private ComboBox    resolutionComboBox;
     private FileChooser fileChooser;
     private File        file;
-
     @Override
     public void init() {
 

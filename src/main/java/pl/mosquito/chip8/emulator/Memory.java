@@ -325,8 +325,13 @@ public class Memory {
     }
 
     private void waitForKeyPress() {
-
-        pc += 2;
+        for (int i = 0; i < 16; i++) {
+            if (keyboard.isPressed(i)) {
+                V[(opcode & 0x0F00) >> 8] = i;
+                pc += 2;
+                break;
+            }
+        }
     }
 
     private void setDelayTimerToVX() {

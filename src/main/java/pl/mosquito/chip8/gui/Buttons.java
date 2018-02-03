@@ -15,6 +15,8 @@ import javafx.stage.Window;
 
 import java.io.File;
 
+
+
 public class Buttons {
 
    Button runButton() {
@@ -44,7 +46,7 @@ public class Buttons {
        Button button = new Button("Keyboard settings");
 
        button.setOnAction((ae) -> {
-           new Keyboard_settings();
+           new Keyboard_settings(true);
 
        });
        return button;
@@ -79,11 +81,17 @@ public class Buttons {
         return button;
     }
 
-    Button saveSet() {
+    /*Button saveSet() {
         Button button = new Button("Save settings");
+        button.setOnAction((ae) -> {
+            //Keyboard_settings keyboard_settings = new Keyboard_settings(false);
+            //keyboard_settings.saveSettings();
+
+            saveSettings();
+        });
 
         return button;
-    }
+    }*/
 
     Button closeKeyboard() {
         Button button = new Button("Close");

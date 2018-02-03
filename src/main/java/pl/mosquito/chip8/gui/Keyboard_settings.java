@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 
+import static pl.mosquito.chip8.gui.MainWindow.isSet;
 
 
 public class Keyboard_settings  {
@@ -30,12 +31,14 @@ public class Keyboard_settings  {
     private Labels              labels;
     private Label[]             label;
     private TextField[]         textFields;
+    private String[]            keySet;
 
-    public Keyboard_settings() {
-        thread = new Thread( "chip8 keyboard settings");
-        thread.start();
-        window();
-
+    public Keyboard_settings(boolean newThread) {
+        if(newThread) {
+            thread = new Thread("chip8 keyboard settings");
+            thread.start();
+            window();
+        }
 
     }
 
@@ -46,14 +49,15 @@ public class Keyboard_settings  {
         labels          = new Labels();
         label           = new Label[16];
         textFields      = new TextField[16];
+        keySet          = new String[16];
         primarystage    = new Stage();
         borderPane      = new BorderPane();
         flowPaneLeft    = new FlowPane();
         flowPaneRight   = new FlowPane();
         flowPaneBottom  = new FlowPane();
         DoneButton      = buttons.Done();
-        saveSetButton   = buttons.saveSet();
         closeButton     = buttons.closeKeyboard();
+        saveSetButtonSetOnAction();
         setUI();
         setPane();
         primarystage.setTitle("Keyboard settings");
@@ -65,10 +69,22 @@ public class Keyboard_settings  {
         primarystage.show();
     }
 
+    private void saveSetButtonSetOnAction() {
+        saveSetButton.setOnAction((ae) -> {
+            saveSettings();
+        });
+    }
+
     private void setUI() {
         for(int element = 0; element < label.length; element++) {
             label[element]      = new Label(labels.getList(element));
-            textFields[element] = new TextField(labels.getList(element));
+            /**
+             * defalut settings
+             */
+            if(!isSet)
+                textFields[element] = new TextField(labels.getList(element));
+            else
+                textFields[element] = new TextField();
             textFields[element].setPrefWidth(25);
         }
     }
@@ -104,5 +120,16 @@ public class Keyboard_settings  {
 
         borderPane.setBottom(flowPaneBottom);
 
+    }
+
+    private void saveSettings() {
+        for(int i = 0; i < textFields.length; i++)
+            keySet[i] = textFields[i].getText();
+        //static MainWindow
+        isSet = true;
+    }
+
+    public String[] getUserSettings() {
+        return this.keySet;
     }
 }
